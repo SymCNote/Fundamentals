@@ -2,14 +2,14 @@
 
 例子 (SKINNY):
 
-'''
+```
 SKINNY_SB_4 = [12,6,9,0,1,10,2,11,3,8,5,13,4,14,7,15]
 Diff_d2, Diff_d9, Diff_bc, Diff_25 = (0xd,0x2), (0xd,0x9), (0xb,0xc), (0x2, 0x5)
 
 # '''
 # The half constraint:
-# * x_DDT is the -input- value of Sbox which fulfills the differential
-# * y_DDT is the -output- value of Sbox which fulfills the differential
+# * x_DDT is the -input- value of Sbox, which fulfills the differential
+# * y_DDT is the -output- value of Sbox, which fulfills the differential
 # '''
 
 y_DDT_d2 = {SKINNY_SB_4[x] for x in range(16) if SKINNY_SB_4[x] ^ SKINNY_SB_4[x^Diff_d2[0]] == Diff_d2[1]}
@@ -32,4 +32,4 @@ print("subkey_02_C1:", [f"{k:02x}" for k in sorted(subkey_02_C2)])
 inter_C = subkey_02_C1.intersection(subkey_02_C2)
 
 print("intersection of C1 and C2:",inter_C)
-'''
+```
