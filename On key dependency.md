@@ -2,7 +2,7 @@
 
 例子 (SKINNY):
 
-```
+```python
 SKINNY_SB_4 = [12,6,9,0,1,10,2,11,3,8,5,13,4,14,7,15]
 Diff_d2, Diff_d9, Diff_bc, Diff_25 = (0xd,0x2), (0xd,0x9), (0xb,0xc), (0x2, 0x5)
 
@@ -33,3 +33,14 @@ inter_C = subkey_02_C1.intersection(subkey_02_C2)
 
 print("intersection of C1 and C2:",inter_C)
 ```
+
+```python
+y_DDT_d2 : ['04', '06', '0c', '0e']
+y_DDT_d9 : ['01', '03', '08', '0a']
+x_DDT_bc : ['06', '0d']
+x_DDT_25 : ['06', '0d']
+subkey_02_C1: ['00', '01', '02', '03', '08', '09', '0a', '0b']
+subkey_02_C1: ['04', '05', '06', '07', '0c', '0d', '0e', '0f']
+intersection of C1 and C2: set()
+```
+
