@@ -61,5 +61,5 @@ y_3 =& x_0 \oplus x_2 \oplus k_0
 \end{aligned}
 $$
 
-<img width="1860" height="350" alt="image" src="https://github.com/user-attachments/assets/d16baabf-3e34-4258-ad92-c0d3f4ea146e" />
+<img width="3954" height="2598" alt="keydependencySKINNY" src="https://github.com/user-attachments/assets/c537ab66-5df6-4ac8-911f-e66089c29ca6" />
 
