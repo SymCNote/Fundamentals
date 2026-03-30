@@ -59,6 +59,7 @@ portion: 0.0
 对线性层，有自然的约束 (如图中所示), 
 
 **其中** $x$ 表示 $y_{DDT}(column)$, 即前一半的半约束, $R.0$ 的 Sbox 之后值; $y$ 表示 $x_{DDT}(column)$, $R.1$ 的 Sbox 之前值.
+
 $$
 \begin{aligned}
 y_0 =& x_0 \oplus x_2 \oplus x_3 \oplus k_0\\
