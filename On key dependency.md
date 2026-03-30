@@ -2,7 +2,7 @@
 
 
 
-### Linear Constraint
+### Simple Linear Constraint
 
 
 
@@ -54,7 +54,7 @@ portion: 0.0
 
 
 
-### High-order linear constraints:
+### High-order Linear Constraints:
 
 对线性层，有自然的约束 (如图中所示), 
 
@@ -108,7 +108,7 @@ $$
 
 <img alt="keydependencySKINNY" src="https://github.com/user-attachments/assets/c537ab66-5df6-4ac8-911f-e66089c29ca6" />
 
-把 ART+SR+MC 当作整体, 记图中<font color=green> 绿圈 = $NL_i$ </font>, <font color=purple>紫圈=$NL_o$</font>.
+把 ART+SR+MC 当作整体, 记图中 $\textcolor{green}{绿圈 = NL_i}, \textcolor{purple}{紫圈=NL_o}$.
 
 因为 $NL_i$ 所在一列仅有其自身活跃, 所以该列只有这一个 半约束 , 所以涉及到上面式子中的 $x_0, x_1, x_3$ 均为冗余约束, 唯一有效约束为仅包含 $x_2$ 的约束, 为 (三行等价):
 
