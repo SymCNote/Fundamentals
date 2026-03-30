@@ -73,6 +73,7 @@ SKINNY 的这种情况是特例. 对其他 *有更复杂/充分的 Key Addition*
 2. 对所有分组密码, 将 输入-输出 方程组合.
 
 对方法 2. ,上述例子的组合为 (后标**阶数**):
+
 $$
 \begin{alignat*}{7}
 & y_0 \oplus  y_1 &=& x_2 \oplus x_3 &\quad  & & \qquad(0)\\
@@ -88,6 +89,7 @@ $$
 & y_0 \oplus y_1 \oplus y_2 \oplus  y_3    &=& x_0 \oplus x_1 \oplus x_2 \oplus x_3 \oplus &\quad & k_0 \oplus k_1 & \qquad(2)
 \end{alignat*}
 $$
+
 **阶数的作用:**
 
 * (0) 直接判决差分特征 **无效**
@@ -108,6 +110,7 @@ $$
 把 ART+SR+MC 当作整体, 记图中<font color=green> 绿圈 = $NL_i$ </font>, <font color=purple>紫圈=$NL_o$</font>.
 
 因为 $NL_i$ 所在一列仅有其自身活跃, 所以该列只有这一个 半约束 , 所以涉及到上面式子中的 $x_0, x_1, x_3$ 均为冗余约束, 唯一有效约束为仅包含 $x_2$ 的约束, 为 (三行等价):
+
 $$
 \begin{aligned}
 & y_1\oplus y_3 = x_0 \oplus k_0 \oplus x_0 \oplus x_2 \oplus k_0 = x_2\\
