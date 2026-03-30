@@ -51,6 +51,7 @@ intersection of C1 and C2: set()
 High-order linear constraints:
 
 对线性层，有自然的约束 (如图中所示):
+
 $$
 \begin{aligned}
 y_0 =& x_0 \oplus x_2 \oplus x_3 \oplus k_0\\
