@@ -131,3 +131,6 @@ print("char. valid in:", [f"({a:02x},{b:02x},{c:02x})" for a,b,c in sorted(chars
 ```python
 char. valid in: []
 ```
+
+
+<img width="3954" height="2598" alt="keydependencySKINNY - NL drawio" src="https://github.com/user-attachments/assets/df6648e1-a06f-4039-996f-1b8da65bd045" />
