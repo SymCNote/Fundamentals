@@ -35,7 +35,7 @@
 
 
 $$
-\mathbb{P}(\Delta_{in} \to \Delta_{out}) = \frac{\textsf{No.}[F(x) \oplus F(x \oplus \Delta_{in}) = \Delta_{out}\}]{2^n}
+\mathbb{P}(\Delta_{in} \to \Delta_{out}) = \frac{\textsf{No.}[F(x) \oplus F(x \oplus \Delta_{in}) = \Delta_{out}]{2^n}
 $$
 
 
