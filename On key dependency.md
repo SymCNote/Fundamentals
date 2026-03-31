@@ -56,12 +56,12 @@ $$
 
 $$
 \begin{aligned}
-&\mathcal{X}_{DDT}(\Delta_{in}, \Delta_{out}) := \{a : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\}\\
-&\mathcal{Y}_{DDT}(\Delta_{in}, \Delta_{out}) := \{F(a) : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\}
+&X_{DDT}(\Delta_{in}, \Delta_{out}) := \{a : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\}\\
+&Y_{DDT}(\Delta_{in}, \Delta_{out}) := \{F(a) : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\}
 \end{aligned}
 $$
 
-也即, $X_{DDT}$ 是满足 Sbox 差分转移的 Sbox **输入值** 集合; $\mathcal{Y}_{DDT}$ 是满足 Sbox 差分转移的 Sbox **输出值** 集合.
+也即, $X_{DDT}$ 是满足 Sbox 差分转移的 Sbox **输入值** 集合; $Y_{DDT}$ 是满足 Sbox 差分转移的 Sbox **输出值** 集合.
 
 
 
@@ -73,11 +73,11 @@ $$
 
 <img alt="image" src="https://github.com/user-attachments/assets/73c08c04-7b74-4bf4-8337-d00f87e6a8b2" />
 
-经验证 (coding), $\mathcal{X}_{DDT}(0x2,0x5) = \{0x0, 0x2, 0x9, 0xb\}$, $\mathcal{Y}_{DDT}(0x2,0x5) = \{0x8, 0x9, 0xc, 0xd\}$.
+经验证 (coding), $X_{DDT}(0x2,0x5) = \{0x0, 0x2, 0x9, 0xb\}$, $Y_{DDT}(0x2,0x5) = \{0x8, 0x9, 0xc, 0xd\}$.
 
 * **A2:** 在实际的攻击中, 密钥是固定的, 而非随机 (即, *并不能给值传播带来足够的随机性*) [we should not forget that in the setting of an actual attack, the key remains fixed, although at some unknown value.]
 
-* **A3:** 线性层扩散不够, 使得 $\mathcal{X}_{DDT}$ 与 $\mathcal{Y}_{DDT}$ 之间并没有得到充分的扩散 (*没有带来足够的随机性*)
+* **A3:** 线性层扩散不够, 使得 $X_{DDT}$ 与 $Y_{DDT}$ 之间并没有得到充分的扩散 (*没有带来足够的随机性*)
 * **A4:** 对 bit-wise ciphers, *不活跃差分的取值也会被限制*.
 
 
@@ -86,7 +86,7 @@ $$
 
 **半约束 (half constraint)**: 
 
-非线性层的为了满足特定的差分传播而对 **值** 产生的限制, 如上面介绍的 $\mathcal{X}_{DDT}$ 和 $\mathcal{Y}_{DDT}$. 
+非线性层的为了满足特定的差分传播而对 **值** 产生的限制, 如上面介绍的 $X_{DDT}$ 和 $Y_{DDT}$. 
 
 半约束由 非线性层产生 ($\leftrightarrow$) $\rightarrow$ 在线性层产生影响 $\rightarrow$ 从而将影响传播轮密钥 $\rightarrow$ 再由轮密钥传至主密钥.
 
