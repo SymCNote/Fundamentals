@@ -35,21 +35,79 @@
 
 
 $$
-\mathbb{P}(\Delta_{in} \to \Delta_{out}) = \frac{\textsf{No.}[F(x) \oplus F(x \oplus \Delta_{in}) = \Delta_{out}]{2^n}
+\mathbb{P}(\Delta_{in} \to \Delta_{out}) = \frac{\textsf{No.}\{F(x) \oplus F(x \oplus \Delta_{in}) = \Delta_{out}\}}{2^n}
 $$
+当分析基于 **Markov 假设**时, 多轮差分概率计算为每轮概率相乘:
+
+
+$$
+\mathbb{P}(\Delta_{in} \to \Delta_1 \to \dots \to \Delta_{out}) = \mathbb{P}(\Delta_0, \Delta_1) \cdot \mathbb{P}(\Delta_1, \Delta_2) \cdot \dots \cdot \mathbb{P}(\Delta_{r-1}, \Delta_r)
+$$
+当分析基于**随机等价假设 (Hypothesis of stochastic equivalence)** 时, 多轮后的概率不受前轮的影响: 
+
+
+$$
+\mathbb{P}(\Delta_r = \alpha_r \mid \Delta_0 = \alpha_0) \approx \mathbb{P}(\Delta_r = \alpha_r \mid \Delta_0 = \alpha_1, k^1 = \omega_1, \dots, k^r = \omega_r)
+$$
+定义以下, 为方便后续描述 (其中 $\oplus$ 可作用于集合, 对应位置 XOR):
+
+
+$$
+\begin{aligned}
+&\mathcal{X}_{DDT}(\Delta_{in}, \Delta_{out}) := \{a : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\}\\
+
+&\mathcal{Y}_{DDT}(\Delta_{in}, \Delta_{out}) := \{F(a) : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\}
+\end{aligned}
+$$
+也即, $\mathcal{X}_{DDT}$ 是满足 Sbox 差分转移的 Sbox **输入值** 集合; $\mathcal{Y}_{DDT}$ 是满足 Sbox 差分转移的 Sbox **输出值** 集合.
+
+
+
+## Framework: Detecting/Analyzing Constraints
+
+**Q**: *为什么会出现差分特征仅 部分满足 或 不可能成立?*
+
+* **A1:** 对 Sbox 其 固定的差分转移 其实并非对所有可能值都满足, 如下:
+
+<img alt="image" src="https://github.com/user-attachments/assets/73c08c04-7b74-4bf4-8337-d00f87e6a8b2" />
+
+经验证 (coding), $\mathcal{X}_{DDT}(0x2,0x5) = \{0x0, 0x2, 0x9, 0xb\}$, $\mathcal{Y}_{DDT}(0x2,0x5) = \{0x8, 0x9, 0xc, 0xd\}$.
+
+* **A2:** 在实际的攻击中, 密钥是固定的, 而非随机 (即, *并不能给值传播带来足够的随机性*) [we should not forget that in the setting of an actual attack, the key remains fixed, although at some unknown value.]
+
+* **A3:** 线性层扩散不够, 使得 $\mathcal{X}_{DDT}$ 与 $\mathcal{Y}_{DDT}$ 之间并没有得到充分的扩散 (*没有带来足够的随机性*)
+* **A4:** 对 bit-wise ciphers, *不活跃差分的取值也会被限制*.
+
+
+
+### Constraint Detection
+
+**半约束 (half constraint)**: 
+
+非线性层的为了满足特定的差分传播而对 **值** 产生的限制, 如上面介绍的 $\mathcal{X}_{DDT}$ 和 $\mathcal{Y}_{DDT}$. 
+
+半约束由 非线性层产生 ($\leftrightarrow$) $\rightarrow$ 在线性层产生影响 $\rightarrow$ 从而将影响传播轮密钥 $\rightarrow$ 再由轮密钥传至主密钥.
+
+<img alt="image" src="https://github.com/user-attachments/assets/cc93aa72-d448-4e07-9386-364542b333b2" />
+
+**非线性操作 之间操作(记 $L_k$) 产生的影响**:
+
+* 如果 $L_k$ 带来了 *足够的随机性*, 则半约束的影响被消除, 没研究意义.
+* 如果 $L_k$ 带来了 *不够的随机性*, 则连接 $L_k$ 前后的半约束.
+
+
+
+下面以 SKINNY 为例, 介绍几中约束形式.
+
+### Linear Constraint
+
+#### Simple Linear Constraint
 
 
 
 
-## Linear Constraint
 
-### Simple Linear Constraint
-
-
-
-**例子 (SKINNY):**
-
-### High-Order Linear Constraints:
+#### High-Order Linear Constraints:
 
 对线性层，有自然的约束 (如图中所示), 
 
@@ -118,7 +176,7 @@ $$
 
 
 
-## Nonlinear Constraints
+### Nonlinear Constraints
 
 <img alt="keydependencySKINNY - NL drawio" src="https://github.com/user-attachments/assets/df6648e1-a06f-4039-996f-1b8da65bd045" />
 
@@ -265,8 +323,3 @@ Size 2 sets: 128, pr: 0.0625
 Size 4 sets: 64, pr: 0.125
 [Finished in 75ms]
 ```
-
-
-<img width="1010" height="166" alt="image" src="https://github.com/user-attachments/assets/73c08c04-7b74-4bf4-8337-d00f87e6a8b2" />
-
-<img width="1304" height="445" alt="image" src="https://github.com/user-attachments/assets/cc93aa72-d448-4e07-9386-364542b333b2" />
