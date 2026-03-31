@@ -265,3 +265,6 @@ Size 2 sets: 128, pr: 0.0625
 Size 4 sets: 64, pr: 0.125
 [Finished in 75ms]
 ```
+
+
+<img width="1010" height="166" alt="image" src="https://github.com/user-attachments/assets/73c08c04-7b74-4bf4-8337-d00f87e6a8b2" />
