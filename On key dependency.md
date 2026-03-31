@@ -32,6 +32,8 @@
 
 
 **一轮差分概率**: 设 $\Delta_{in}, \Delta_{out}$ 分别为一轮的输入, 输出差分, 有:
+
+
 $$
 \mathbb{P}(\Delta_{in} \to \Delta_{out}) = \frac{\#\{F(x) \oplus F(x \oplus \Delta_{in}) = \Delta_{out}\}}{2^n}
 $$
