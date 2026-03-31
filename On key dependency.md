@@ -35,7 +35,7 @@
 
 
 $$
-\mathbb{P}(\Delta_{in} \to \Delta_{out}) = \frac{\textsf{No.}\lbrace F(x) \oplus F(x \oplus \Delta_{in}) = \Delta_{out}\}}{2^n}
+\mathbb{P}(\Delta_{in} \to \Delta_{out}) = \frac{\textsf{No.}\lbrace F(x) \oplus F(x \oplus \Delta_{in}) = \Delta_{out}\rbrace}{2^n}
 $$
 
 当分析基于 **Markov 假设**时, 多轮差分概率计算为每轮概率相乘:
@@ -56,8 +56,8 @@ $$
 
 $$
 \begin{aligned}
-&X_{DDT}(\Delta_{in}, \Delta_{out}) := \lbrace a : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\}\\
-&Y_{DDT}(\Delta_{in}, \Delta_{out}) := \lbrace F(a) : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\}
+&X_{DDT}(\Delta_{in}, \Delta_{out}) := \lbrace a : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\rbrace\\
+&Y_{DDT}(\Delta_{in}, \Delta_{out}) := \lbrace F(a) : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\rbrace
 \end{aligned}
 $$
 
@@ -170,7 +170,7 @@ $$
 \begin{aligned}
 & y_1\oplus y_3 = x_0 \oplus k_0 \oplus x_0 \oplus x_2 \oplus k_0 = x_2\\
 \\
-& \lbrace x_{DDT}(0x2,0x5)=\lbrace 0x0, 0x2, 0x9, 0xb\}\} \oplus \lbrace x_{DDT}(0xb,0xc)=\lbrace 0x6,0xd\}\} =  \lbrace y_{DDT}(0xd,0x9)=\lbrace 0x1,0x3,0x8,0xa\}\}\\
+& \lbrace x_{DDT}(0x2,0x5)=\lbrace 0x0, 0x2, 0x9, 0xb\rbrace\rbrace \oplus \lbrace x_{DDT}(0xb,0xc)=\lbrace 0x6,0xd\rbrace\rbrace =  \lbrace y_{DDT}(0xd,0x9)=\lbrace 0x1,0x3,0x8,0xa\rbrace\rbrace\\
 \\
 & HL_o^6\oplus HL_o^{14} = HL_i^8
 \end{aligned}
