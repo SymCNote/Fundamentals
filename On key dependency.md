@@ -73,7 +73,7 @@ $$
 
 <img alt="image" src="https://github.com/user-attachments/assets/73c08c04-7b74-4bf4-8337-d00f87e6a8b2" />
 
-经验证 (coding), $X_{DDT}(0x2,0x5) = \lbrace 0x0, 0x2, 0x9, 0xb\}$, $Y_{DDT}(0x2,0x5) = \lbrace 0x8, 0x9, 0xc, 0xd\}$.
+经验证 (coding), $X_{DDT}(0x2,0x5) = \lbrace 0x0, 0x2, 0x9, 0xb\rbrace$, $Y_{DDT}(0x2,0x5) = \lbrace 0x8, 0x9, 0xc, 0xd\rbrace$.
 
 * **A2:** 在实际的攻击中, 密钥是固定的, 而非随机 (即, *并不能给值传播带来足够的随机性*) [we should not forget that in the setting of an actual attack, the key remains fixed, although at some unknown value.]
 
