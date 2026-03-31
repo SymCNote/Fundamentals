@@ -57,12 +57,11 @@ $$
 $$
 \begin{aligned}
 &\mathcal{X}_{DDT}(\Delta_{in}, \Delta_{out}) := \{a : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\}\\
-
 &\mathcal{Y}_{DDT}(\Delta_{in}, \Delta_{out}) := \{F(a) : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\}
 \end{aligned}
 $$
 
-也即, $\mathcal{X}_{DDT}$ 是满足 Sbox 差分转移的 Sbox **输入值** 集合; $\mathcal{Y}_{DDT}$ 是满足 Sbox 差分转移的 Sbox **输出值** 集合.
+也即, $X_{DDT}$ 是满足 Sbox 差分转移的 Sbox **输入值** 集合; $\mathcal{Y}_{DDT}$ 是满足 Sbox 差分转移的 Sbox **输出值** 集合.
 
 
 
