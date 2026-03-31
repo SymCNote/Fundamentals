@@ -35,7 +35,7 @@
 
 
 $$
-\mathbb{P}(\Delta_{in} \to \Delta_{out}) = \frac{\textsf{No.}\{F(x) \oplus F(x \oplus \Delta_{in}) = \Delta_{out}\}}{2^n}
+\mathbb{P}(\Delta_{in} \to \Delta_{out}) = \frac{\textsf{No.}\lbrace F(x) \oplus F(x \oplus \Delta_{in}) = \Delta_{out}\rbrace}{2^n}
 $$
 
 当分析基于 **Markov 假设**时, 多轮差分概率计算为每轮概率相乘:
