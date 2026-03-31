@@ -98,8 +98,9 @@ $$
 * 如果 $L_k$ 带来了 *不够的随机性*, 则连接 $L_k$ 前后的半约束.
 
 
+---
 
-$\underline{下面以 SKINNY 为例, 介绍几中约束形式.}$
+下面以 SKINNY 为例, 介绍几中约束形式.
 
 ### Linear Constraint
 
