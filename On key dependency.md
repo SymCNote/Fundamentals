@@ -8,53 +8,7 @@
 
 **例子 (SKINNY):**
 
-```python
-# Linear Constraint (Py)
-SKINNY_SB_4 = [12,6,9,0,1,10,2,11,3,8,5,13,4,14,7,15]
-Diff_d2, Diff_d9, Diff_bc, Diff_25 = (0xd,0x2), (0xd,0x9), (0xb,0xc), (0x2, 0x5)
-
-'''
-The half constraint:
-* x_DDT is the -input- value of Sbox which fullfills the differential
-* y_DDT is the -output- value of Sbox which fullfills the differential
-'''
-
-y_DDT_d2 = {SKINNY_SB_4[x] for x in range(16) if SKINNY_SB_4[x] ^ SKINNY_SB_4[x^Diff_d2[0]] == Diff_d2[1]}
-y_DDT_d9 = {SKINNY_SB_4[x] for x in range(16) if SKINNY_SB_4[x] ^ SKINNY_SB_4[x^Diff_d9[0]] == Diff_d9[1]}
-x_DDT_bc = {x for x in range(16) if SKINNY_SB_4[x] ^ SKINNY_SB_4[x^Diff_bc[0]] == Diff_bc[1]}
-x_DDT_25 = {x for x in range(16) if SKINNY_SB_4[x] ^ SKINNY_SB_4[x^Diff_25[0]] == Diff_25[1]}
-
-
-subkey_02_C1 = {(v1 ^ v2 ^ 0x2 ^ v3) for v1 in y_DDT_d2 for v2 in y_DDT_d9 for v3 in x_DDT_bc} & set(range(16))
-subkey_02_C2 = {(v1 ^ 0x2 ^ v2) for v1 in y_DDT_d2 for v2 in x_DDT_25} & set(range(16))
-
-
-print("y_DDT_d2 :", [f"{v:02x}" for v in sorted(y_DDT_d2)])
-print("y_DDT_d9 :", [f"{v:02x}" for v in sorted(y_DDT_d9)])
-print("x_DDT_bc :", [f"{v:02x}" for v in sorted(x_DDT_bc)])
-print("x_DDT_25 :", [f"{v:02x}" for v in sorted(x_DDT_25)])
-print("subkey_02_C1:", [f"{k:02x}" for k in sorted(subkey_02_C1)])
-print("subkey_02_C2:", [f"{k:02x}" for k in sorted(subkey_02_C2)])
-
-inter_C = subkey_02_C1.intersection(subkey_02_C2)
-
-print("intersection of C1 and C2:",inter_keyC, "\nportion:", len(inter_keyC)/(2**4))
-```
-
-```python
-y_DDT_d2 : ['04', '06', '0c', '0e']
-y_DDT_d9 : ['01', '03', '08', '0a']
-x_DDT_bc : ['06', '0d']
-x_DDT_25 : ['00', '02', '09', '0b']
-subkey_02_C1: ['00', '01', '02', '03', '08', '09', '0a', '0b']
-subkey_02_C2: ['04', '05', '06', '07', '0c', '0d', '0e', '0f']
-intersection of C1 and C2: set()
-portion: 0.0
-```
-
-
-
-### High-order Linear Constraints:
+### High-Order Linear Constraints:
 
 对线性层，有自然的约束 (如图中所示), 
 
@@ -108,9 +62,9 @@ $$
 
 <img alt="keydependencySKINNY" src="https://github.com/user-attachments/assets/c537ab66-5df6-4ac8-911f-e66089c29ca6" />
 
-把 ART+SR+MC 当作整体, 记图中 $\textcolor{green}{绿圈 = NL_i}, \textcolor{purple}{紫圈=NL_o}$.
+把 ART+SR+MC 当作整体, 记图中 $\textcolor{green}{绿圈 = HL_i}, \textcolor{purple}{紫圈=HL_o}$.
 
-因为 $NL_i$ 所在一列仅有其自身活跃, 所以该列只有这一个 半约束 , 所以涉及到上面式子中的 $x_0, x_1, x_3$ 均为冗余约束, 唯一有效约束为仅包含 $x_2$ 的约束, 为 (三行等价):
+因为 $HL_i$ 所在一列仅有其自身活跃, 所以该列只有这一个 半约束 , 所以涉及到上面式子中的 $x_0, x_1, x_3$ 均为冗余约束, 唯一有效约束为仅包含 $x_2$ 的约束, 为 (三行等价):
 
 $$
 \begin{aligned}
@@ -118,19 +72,109 @@ $$
 \\
 & \{x_{DDT}(0x2,0x5)=\{0x0, 0x2, 0x9, 0xb\}\} \oplus \{x_{DDT}(0xb,0xc)=\{0x6,0xd\}\} =  \{y_{DDT}(0xd,0x9)=\{0x1,0x3,0x8,0xa\}\}\\
 \\
-& NL_o^6\oplus NL_o^{14} = NL_i^8
+& HL_o^6\oplus HL_o^{14} = HL_i^8
 \end{aligned}
 $$
 
-```python
-# NonLinear Constraints (partial, mark as position)(Py)
-charset = {(v1, v2, v3) for v1 in x_DDT_25 for v2 in x_DDT_bc for v3 in y_DDT_d9 if v1 ^ v2 ^ v3 == 0}
-print("char. valid in:", [f"({a:02x},{b:02x},{c:02x})" for a,b,c in sorted(charset)])
-```
 
-```python
-char. valid in: []
-```
 
+### Nonlinear Constraints
 
 <img alt="keydependencySKINNY - NL drawio" src="https://github.com/user-attachments/assets/df6648e1-a06f-4039-996f-1b8da65bd045" />
+
+
+
+
+
+### 文中例子代码 (Py)
+
+```python
+SKINNY_SB_4 = [12,6,9,0,1,10,2,11,3,8,5,13,4,14,7,15]
+Diff_d2, Diff_d9, Diff_bc, Diff_25, Diff_42 = (0xd,0x2), (0xd,0x9), (0xb,0xc), (0x2, 0x5), (0x4, 0x2)
+
+'''
+The half constraint:
+* x_DDT is the -input- value of Sbox which fulfills the differential
+* y_DDT is the -output- value of Sbox which fulfills the differential
+'''
+
+y_DDT_d2 = {SKINNY_SB_4[x] for x in range(16) if SKINNY_SB_4[x] ^ SKINNY_SB_4[x^Diff_d2[0]] == Diff_d2[1]}
+y_DDT_d9 = {SKINNY_SB_4[x] for x in range(16) if SKINNY_SB_4[x] ^ SKINNY_SB_4[x^Diff_d9[0]] == Diff_d9[1]}
+y_DDT_25 = {SKINNY_SB_4[x] for x in range(16) if SKINNY_SB_4[x] ^ SKINNY_SB_4[x^Diff_25[0]] == Diff_25[1]}
+y_DDT_42 = {SKINNY_SB_4[x] for x in range(16) if SKINNY_SB_4[x] ^ SKINNY_SB_4[x^Diff_42[0]] == Diff_42[1]}
+
+x_DDT_bc = {x for x in range(16) if SKINNY_SB_4[x] ^ SKINNY_SB_4[x^Diff_bc[0]] == Diff_bc[1]}
+x_DDT_25 = {x for x in range(16) if SKINNY_SB_4[x] ^ SKINNY_SB_4[x^Diff_25[0]] == Diff_25[1]}
+
+print("Half Constraints:")
+print("y_DDT_d2 :", [f"{v:02x}" for v in sorted(y_DDT_d2)])
+print("y_DDT_d9 :", [f"{v:02x}" for v in sorted(y_DDT_d9)])
+print("y_DDT_25 :", [f"{v:02x}" for v in sorted(y_DDT_25)])
+print("y_DDT_42 :", [f"{v:02x}" for v in sorted(y_DDT_42)])
+
+print("x_DDT_bc :", [f"{v:02x}" for v in sorted(x_DDT_bc)])
+print("x_DDT_25 :", [f"{v:02x}" for v in sorted(x_DDT_25)])
+
+# ============================================================================================================
+# Simple Linear Constraints (partial, mark as position)
+subkey_02_C1 = {(v1 ^ v2 ^ 0x2 ^ v3) for v1 in y_DDT_d2 for v2 in y_DDT_d9 for v3 in x_DDT_bc} & set(range(16))
+subkey_02_C2 = {(v1 ^ 0x2 ^ v2) for v1 in y_DDT_d2 for v2 in x_DDT_25} & set(range(16))
+
+print("\n---Simple Linear---")
+print("subkey_02_C1:", [f"{k:02x}" for k in sorted(subkey_02_C1)])
+print("subkey_02_C2:", [f"{k:02x}" for k in sorted(subkey_02_C2)])
+
+inter_keyC = subkey_02_C1.intersection(subkey_02_C2)
+
+print("intersection of C1 and C2:",inter_keyC, "\nportion:", len(inter_keyC)/(2**4))
+
+# ============================================================================================================
+# High-order Constraints (partial, mark as position)
+charset = {(v1, v2, v3) for v1 in x_DDT_25 for v2 in x_DDT_bc for v3 in y_DDT_d9 if v1 ^ v2 ^ v3 == 0}
+print("\n---High-order Linear---\nchar. valid in:", [f"({a:02x},{b:02x},{c:02x})" for a,b,c in sorted(charset)])
+
+
+# ============================================================================================================
+# Nonlinear Constraint
+keyset2 = [[set() for _ in range(16)] for _ in range(16)]
+
+v_d = {(v1 ^ v2) for v1 in y_DDT_25 for v2 in y_DDT_25}
+v_e = {(v1 ^ v2) for v1 in y_DDT_42 for v2 in x_DDT_25}
+
+N = len(v_d) * len(v_e)
+
+for k1 in range(16):
+    for k2 in range(16):
+        for d in v_d:
+            for e in v_e:
+                if SKINNY_SB_4[k1 ^ d] == (k2 ^ e):
+                    keyset2[k1][k2].add((d, e))
+
+print("v_d :", [f"{v:01x}" for v in sorted(v_d)])
+print("v_e :", [f"{v:01x}" for v in sorted(v_e)])
+
+# Print keyset2 as clean 16x16 hex matrix
+for row in keyset2:
+    formatted_row = []
+    for s in row:
+        hex_pairs = [f"({d:01x},{e:01x})" for d, e in sorted(s)]
+        formatted_row.append("{" + ", ".join(hex_pairs) + "}")
+    print("[" + ", ".join(formatted_row) + "]")
+
+# Statistics
+count_0 = count_2 = count_4 = 0
+for k1 in range(16):
+    for k2 in range(16):
+        s_len = len(keyset2[k1][k2])
+        if s_len == 0:
+            count_0 += 1
+        elif s_len == 2:
+            count_2 += 1
+        elif s_len == 4:
+            count_4 += 1
+
+print(f"Empty sets: {count_0}, pr: {0/N}")
+print(f"Size 2 sets: {count_2}, pr: {2/N}")
+print(f"Size 4 sets: {count_4}, pr: {4/N}")
+```
+
