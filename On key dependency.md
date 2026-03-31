@@ -37,18 +37,20 @@
 $$
 \mathbb{P}(\Delta_{in} \to \Delta_{out}) = \frac{\textsf{No.}\{F(x) \oplus F(x \oplus \Delta_{in}) = \Delta_{out}\}}{2^n}
 $$
-当分析基于 **Markov 假设**时, 多轮差分概率计算为每轮概率相乘:
 
+当分析基于 **Markov 假设**时, 多轮差分概率计算为每轮概率相乘:
 
 $$
 \mathbb{P}(\Delta_{in} \to \Delta_1 \to \dots \to \Delta_{out}) = \mathbb{P}(\Delta_0, \Delta_1) \cdot \mathbb{P}(\Delta_1, \Delta_2) \cdot \dots \cdot \mathbb{P}(\Delta_{r-1}, \Delta_r)
 $$
+
 当分析基于**随机等价假设 (Hypothesis of stochastic equivalence)** 时, 多轮后的概率不受前轮的影响: 
 
 
 $$
 \mathbb{P}(\Delta_r = \alpha_r \mid \Delta_0 = \alpha_0) \approx \mathbb{P}(\Delta_r = \alpha_r \mid \Delta_0 = \alpha_1, k^1 = \omega_1, \dots, k^r = \omega_r)
 $$
+
 定义以下, 为方便后续描述 (其中 $\oplus$ 可作用于集合, 对应位置 XOR):
 
 
@@ -59,6 +61,7 @@ $$
 &\mathcal{Y}_{DDT}(\Delta_{in}, \Delta_{out}) := \{F(a) : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\}
 \end{aligned}
 $$
+
 也即, $\mathcal{X}_{DDT}$ 是满足 Sbox 差分转移的 Sbox **输入值** 集合; $\mathcal{Y}_{DDT}$ 是满足 Sbox 差分转移的 Sbox **输出值** 集合.
 
 
