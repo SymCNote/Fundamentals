@@ -35,7 +35,7 @@
 
 
 $$
-\mathbb{P}(\Delta_{in} \to \Delta_{out}) = \frac{\textsf{No.}\lbraceF(x) \oplus F(x \oplus \Delta_{in}) = \Delta_{out}\rbrace}{2^n}
+\mathbb{P}(\Delta_{in} \to \Delta_{out}) = \frac{\textsf{No.}\lbrace F(x) \oplus F(x \oplus \Delta_{in}) = \Delta_{out}\}}{2^n}
 $$
 
 当分析基于 **Markov 假设**时, 多轮差分概率计算为每轮概率相乘:
@@ -56,8 +56,8 @@ $$
 
 $$
 \begin{aligned}
-&X_{DDT}(\Delta_{in}, \Delta_{out}) := \lbracea : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\rbrace\\
-&Y_{DDT}(\Delta_{in}, \Delta_{out}) := \lbraceF(a) : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\rbrace
+&X_{DDT}(\Delta_{in}, \Delta_{out}) := \lbrace a : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\}\\
+&Y_{DDT}(\Delta_{in}, \Delta_{out}) := \lbrace F(a) : a \oplus b = \Delta_{in},\ F(a) \oplus F(b) = \Delta_{out},\ b \in \mathbb{F}_2^n\}
 \end{aligned}
 $$
 
@@ -73,7 +73,7 @@ $$
 
 <img alt="image" src="https://github.com/user-attachments/assets/73c08c04-7b74-4bf4-8337-d00f87e6a8b2" />
 
-经验证 (coding), $X_{DDT}(0x2,0x5) = \lbrace0x0, 0x2, 0x9, 0xb\rbrace$, $Y_{DDT}(0x2,0x5) = \lbrace0x8, 0x9, 0xc, 0xd\rbrace$.
+经验证 (coding), $X_{DDT}(0x2,0x5) = \lbrace 0x0, 0x2, 0x9, 0xb\}$, $Y_{DDT}(0x2,0x5) = \lbrace 0x8, 0x9, 0xc, 0xd\}$.
 
 * **A2:** 在实际的攻击中, 密钥是固定的, 而非随机 (即, *并不能给值传播带来足够的随机性*) [we should not forget that in the setting of an actual attack, the key remains fixed, although at some unknown value.]
 
@@ -170,7 +170,7 @@ $$
 \begin{aligned}
 & y_1\oplus y_3 = x_0 \oplus k_0 \oplus x_0 \oplus x_2 \oplus k_0 = x_2\\
 \\
-& \lbracex_{DDT}(0x2,0x5)=\lbrace0x0, 0x2, 0x9, 0xb\rbrace\rbrace \oplus \lbracex_{DDT}(0xb,0xc)=\lbrace0x6,0xd\rbrace\rbrace =  \lbracey_{DDT}(0xd,0x9)=\lbrace0x1,0x3,0x8,0xa\rbrace\rbrace\\
+& \lbrace x_{DDT}(0x2,0x5)=\lbrace 0x0, 0x2, 0x9, 0xb\}\} \oplus \lbrace x_{DDT}(0xb,0xc)=\lbrace 0x6,0xd\}\} =  \lbrace y_{DDT}(0xd,0x9)=\lbrace 0x1,0x3,0x8,0xa\}\}\\
 \\
 & HL_o^6\oplus HL_o^{14} = HL_i^8
 \end{aligned}
