@@ -99,7 +99,7 @@ $$
 
 
 
-下面以 SKINNY 为例, 介绍几中约束形式.
+$\underline{下面以 SKINNY 为例, 介绍几中约束形式.}$
 
 ### Linear Constraint
 
