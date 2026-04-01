@@ -26,6 +26,7 @@
    * *线性层的强度* 和 plateau characteristics 之间的关系 (具体).
 
 
+<img width="3954" height="2598" alt="keydependencySKINNY - L" src="https://github.com/user-attachments/assets/1c916cd2-169b-44e2-b773-ac61ca306cce" />
 
 ## Basic Definitions
 
