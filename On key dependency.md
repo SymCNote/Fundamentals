@@ -33,7 +33,6 @@
 
 **一轮差分概率**: 设 $\Delta_{in}, \Delta_{out}$ 分别为一轮的输入, 输出差分, 有:
 
-
 $$
 \mathbb{P}(\Delta_{in} \to \Delta_{out}) = \frac{\textsf{No.}\lbrace F(x) \oplus F(x \oplus \Delta_{in}) = \Delta_{out}\rbrace}{2^n}
 $$
@@ -254,12 +253,18 @@ $$
 非线性约束产生的过程:
 
 * 左侧半约束: $d \in Y_{DDT}(2, 5) \oplus Y_{DDT}(2, 5) = \lbrace 0x0, 0x1, 0x4, 0x5 \rbrace$
+
 * 右侧半约束: $e \in Y_{DDT}(4, 2) \oplus X_{DDT}(2, 5) = \lbrace 0x4, 0x5, 0x6, 0x7, 0xc, 0xd, 0xe, 0xf \rbrace$
+
 * 此时到达 $\Delta_{in}=0 \stackrel{Sbox}{\rightarrow} \Delta_{out}=0$ , 有约束:
+
+  
 
 $$
 S(k_{1,2}^1 \oplus d) = k_{1,0}^2 \oplus e
 $$
+
+
 
 * 对每个固定的密钥 ($2^4\times 2^4$ 种情况), 遍历 $d\times e$ (笛卡尔积) 的空间, 记满足上面约束的 **值空间** 为 $S.val$, 所以差分特征对**每个密钥**, 以概率成立:
 
@@ -267,6 +272,24 @@ $$
 $$
 P_r = \frac{|S.val|}{|d\times e|}
 $$
+
+
+$\Rightarrow$ 文中给的例子没有复现出相同的结果, 以下为 我对 非线性约束的理解:
+
+差分概率定义上面已给出, $P_r(\Delta_{in} \to \Delta_{out}) = \frac{\textsf{No.}\lbrace F(x) \oplus F(x \oplus \Delta_{in}) = \Delta_{out}\rbrace}{2^n}$
+
+* 在假设输入输出值 均匀随机 (可覆盖全空间) 的时候:
+
+  遍历的输入空间为 $x\in F_2^n$, 此时对应概率 $P_r(\Delta_{in}\rightarrow \Delta_{out})$.
+
+* 在实际情况下, $x$ 无法遍历全空间, 且 $x$ 会受到 密钥 $k$ 的影响:
+
+  通常为 $x\oplus k \in (Set\subseteq F_2^n)$, 此时, 概率的计算依然依照上式, 但其中 $x$ 可取的空间变小了, 概率就变小了.
+
+**Q:** 变小是基于什么?  
+
+---
+
 
 
 ### 文中例子代码 (Py)
