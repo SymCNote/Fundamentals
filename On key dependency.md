@@ -5,6 +5,7 @@
 <img width="659" height="246" alt="image" src="https://github.com/user-attachments/assets/64de6c61-7468-4f6b-a155-ed34d6adaf53" />
 
 
+
 ## Motivation
 
 1. 目前对分组密码的分析大多基于两个假设:
