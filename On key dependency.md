@@ -26,7 +26,6 @@
    * *线性层的强度* 和 plateau characteristics 之间的关系 (具体).
 
 
-<img width="3954" height="2598" alt="keydependencySKINNY - L" src="https://github.com/user-attachments/assets/1c916cd2-169b-44e2-b773-ac61ca306cce" />
 
 ## Basic Definitions
 
@@ -108,7 +107,7 @@ $$
 
 #### Simple Linear Constraint
 
-<img alt="keydependencySKINNY - L" src="https://github.com/user-attachments/assets/ab4317a2-b3be-4222-8b71-e6031f2bd36f" />
+<img alt="keydependencySKINNY - L" src="https://github.com/user-attachments/assets/1c916cd2-169b-44e2-b773-ac61ca306cce" />
 
 线性约束的产生过程:
 
@@ -132,6 +131,8 @@ $$
 $$
 C1:= k_{0,2}^2 \in \lbrace 0x0, 0x1, 0x2, 0x3, 0x8, 0x9, 0xa, 0xb \rbrace
 $$
+
+
 
 但是可以发现, 在 $k_{0,2}^2$ 上其实还有另一个限制, 
 
@@ -158,6 +159,8 @@ $$
 对线性层，有自然的约束 (如图中所示), 
 
 **其中** $x$ 表示 $y_{DDT}(column)$, 即前一半的半约束, $R.0$ 的 Sbox 之后值; $y$ 表示 $x_{DDT}(column)$, $R.1$ 的 Sbox 之前值.
+
+
 $$
 \begin{aligned}
 y_0 =& x_0 \oplus x_2 \oplus x_3 \oplus k_0\\
@@ -167,11 +170,15 @@ y_3 =& x_0 \oplus x_2 \oplus k_0
 \end{aligned}
 $$
 
+
+
 SKINNY 的这种情况是特例. 对其他 *有更复杂/充分的 Key Addition* 的分组密码, 可能线性层输出对应多个 Keys (进而形成高阶方程). 可以将这些方程组合, 可能产生高阶方程 (也可能抵消密钥变成 0 阶). 所以高阶方程的形成有两种途径:
+
 1. 对 Key Addition 充分的分组密码, 可求 输出 对应于 输入 的方程,直接获得.
 2. 对所有分组密码, 将 输入-输出 方程组合.
 
 对方法 2. ,上述例子的组合为 (后标**阶数**):
+
 
 $$
 \begin{alignat*}{7}
@@ -188,6 +195,8 @@ $$
 & y_0 \oplus y_1 \oplus y_2 \oplus  y_3    &=& x_0 \oplus x_1 \oplus x_2 \oplus x_3 \oplus &\quad & k_0 \oplus k_1 & \qquad(2)
 \end{alignat*}
 $$
+
+
 
 **阶数的作用:**
 
@@ -209,6 +218,7 @@ $$
 把 ART+SR+MC 当作整体, 记图中 $\textcolor{green}{绿圈 = HL_i}, \textcolor{purple}{紫圈=HL_o}$.
 
 因为 $HL_i$ 所在一列仅有其自身活跃, 所以该列只有这一个 半约束 , 所以涉及到上面式子中的 $x_0, x_1, x_3$ 均为冗余约束, 唯一有效约束为仅包含 $x_2$ 的约束, 为 (三行等价):
+
 
 $$
 \begin{aligned}
