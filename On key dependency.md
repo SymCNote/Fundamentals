@@ -2,8 +2,6 @@
 
 > From [Mind Your Path: On (Key) Dependencies in  Differential Characteristics](https://eprint.iacr.org/2022/1734) (Best Paper on FSE 2023)
 
-<img alt="image" src="https://github.com/user-attachments/assets/14cd39c1-23fc-4a49-b8cf-1c490696b0c8" />
-
 
 
 ## Motivation
@@ -159,8 +157,15 @@ $$
 #### High-Order Linear Constraints:
 
 对线性层，有自然的约束 (如图中所示), 
+<img alt="keydependencySKINNY" src="https://github.com/user-attachments/assets/c537ab66-5df6-4ac8-911f-e66089c29ca6" />
 
-**其中** $x$ 表示 $y_{DDT}(column)$, 即前一半的半约束, $R.0$ 的 Sbox 之后值; $y$ 表示 $x_{DDT}(column)$, $R.1$ 的 Sbox 之前值.
+把 ART+SR+MC 当作整体, 记图中 $\textcolor{green}{绿圈 = HL_i}, \textcolor{purple}{紫圈=HL_o}$.
+
+**其中** 
+
+* $x$ 表示 $Y_{DDT}(column)$, 即前一半的半约束, $R.0$ 的 Sbox 之后值 (后续加第一行的密钥 $k_0$ );
+* $y$ 表示 $X_{DDT}(column)$, $R.1$ 的 Sbox 之前值  (后续加第二行的密钥 $k_1$ ).
+
 
 
 $$
@@ -179,7 +184,7 @@ SKINNY 的这种情况是特例. 对其他 *有更复杂/充分的 Key Addition*
 1. 对 Key Addition 充分的分组密码, 可求 输出 对应于 输入 的方程,直接获得.
 2. 对所有分组密码, 将 输入-输出 方程组合.
 
-对方法 2. ,上述例子的组合为 (后标**阶数**):
+对方法 2. ,上述例子的组合为 (后标**阶数=(含 k 的数量)**):
 
 
 $$
@@ -215,10 +220,6 @@ $$
 
 下面是文中对单个 Sbox 进行判定的过程：
 
-<img alt="keydependencySKINNY" src="https://github.com/user-attachments/assets/c537ab66-5df6-4ac8-911f-e66089c29ca6" />
-
-把 ART+SR+MC 当作整体, 记图中 $\textcolor{green}{绿圈 = HL_i}, \textcolor{purple}{紫圈=HL_o}$.
-
 因为 $HL_i$ 所在一列仅有其自身活跃, 所以该列只有这一个 半约束 , 所以涉及到上面式子中的 $x_0, x_1, x_3$ 均为冗余约束, 唯一有效约束为仅包含 $x_2$ 的约束, 为 (三行等价):
 
 
@@ -226,20 +227,46 @@ $$
 \begin{aligned}
 & y_1\oplus y_3 = x_0 \oplus k_0 \oplus x_0 \oplus x_2 \oplus k_0 = x_2\\
 \\
-& \lbrace x_{DDT}(0x2,0x5)=\lbrace 0x0, 0x2, 0x9, 0xb\rbrace\rbrace \oplus \lbrace x_{DDT}(0xb,0xc)=\lbrace 0x6,0xd\rbrace\rbrace =  \lbrace y_{DDT}(0xd,0x9)=\lbrace 0x1,0x3,0x8,0xa\rbrace\rbrace\\
+& (X_{DDT}(0x2,0x5)=\lbrace 0x0, 0x2, 0x9, 0xb\rbrace) \oplus (X_{DDT}(0xb,0xc)=\lbrace 0x6,0xd\rbrace) =  y_{DDT}(0xd,0x9)=\lbrace 0x1,0x3,0x8,0xa\rbrace \\
 \\
 & HL_o^6\oplus HL_o^{14} = HL_i^8
 \end{aligned}
 $$
 
+补充: 如果使用的是条件 $y_0 \oplus  y_2 = x_0 \oplus x_1 \oplus x_3 \oplus \quad k_0 \oplus k_1 \qquad(2)$, 则会涉及*两个密钥*, 同时对两个密钥上产生约束.
+
+---
+
 
 
 ### Nonlinear Constraints
 
+非线性约束, 指约束
+
+1. **跨越了非线性层**, 如下图中的 $R.1-R.3$ 过程中产生的约束,
+2. 且该约束可能会在**零差分状态**上起作用,
+3. 突破 plateau characteristics, 使差分特征以一定**概率**存在 (全集空间的子集)
+
 <img alt="keydependencySKINNY - NL drawio" src="https://github.com/user-attachments/assets/df6648e1-a06f-4039-996f-1b8da65bd045" />
 
+<img alt="image" src="https://github.com/user-attachments/assets/14cd39c1-23fc-4a49-b8cf-1c490696b0c8" />
+
+非线性约束产生的过程:
+
+* $d \in \mathcal{Y}_{DDT}(2, 5) \oplus \mathcal{Y}_{DDT}(2, 5) = \lbrace 0x0, 0x1, 0x4, 0x5 \rbrace$
+* $e \in \mathcal{Y}_{DDT}(4, 2) \oplus \mathcal{X}_{DDT}(2, 5) = \lbrace 0x4, 0x5, 0x6, 0x7, 0xc, 0xd, 0xe, 0xf \rbrace$
+* 此时到达 $\Delta_{in}=0 \stackrel{Sbox}{\rightarrow} \Delta_{out}=0$ , 有约束:
+
+$$
+S(k_{1,2}^1 \oplus d) = k_{1,0}^2 \oplus e
+$$
+
+* 对每个固定的密钥 ($2^4\times 2^4$ 种情况), 遍历 $d\times e$ (笛卡尔积) 的空间, 记满足上面约束的 **值空间** 为 $S.val$, 所以差分特征对**每个密钥**, 以概率成立:
 
 
+$$
+P_r = \frac{|S.val|}{|d\times e|}
+$$
 
 
 ### 文中例子代码 (Py)
