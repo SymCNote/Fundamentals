@@ -2,6 +2,7 @@
 
 > From [Mind Your Path: On (Key) Dependencies in  Differential Characteristics](https://eprint.iacr.org/2022/1734) (Best Paper on FSE 2023)
 
+<img width="659" height="246" alt="image" src="https://github.com/user-attachments/assets/64de6c61-7468-4f6b-a155-ed34d6adaf53" />
 
 
 ## Motivation
