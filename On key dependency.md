@@ -253,8 +253,8 @@ $$
 
 非线性约束产生的过程:
 
-* $d \in \mathcal{Y}_{DDT}(2, 5) \oplus \mathcal{Y}_{DDT}(2, 5) = \lbrace 0x0, 0x1, 0x4, 0x5 \rbrace$
-* $e \in \mathcal{Y}_{DDT}(4, 2) \oplus \mathcal{X}_{DDT}(2, 5) = \lbrace 0x4, 0x5, 0x6, 0x7, 0xc, 0xd, 0xe, 0xf \rbrace$
+*  $d \in \mathcal{Y}_{DDT}(2, 5) \oplus \mathcal{Y}_{DDT}(2, 5) = \lbrace 0x0, 0x1, 0x4, 0x5 \rbrace$
+*  $e \in \mathcal{Y}_{DDT}(4, 2) \oplus \mathcal{X}_{DDT}(2, 5) = \lbrace 0x4, 0x5, 0x6, 0x7, 0xc, 0xd, 0xe, 0xf \rbrace$
 * 此时到达 $\Delta_{in}=0 \stackrel{Sbox}{\rightarrow} \Delta_{out}=0$ , 有约束:
 
 $$
