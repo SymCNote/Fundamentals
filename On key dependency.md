@@ -284,9 +284,15 @@ $\Rightarrow$ 文中给的例子没有复现出相同的结果, 以下为 我对
 
 * 在实际情况下, $x$ 无法遍历全空间, 且 $x$ 会受到 密钥 $k$ 的影响:
 
-  通常为 $x\oplus k \in (Set\subseteq F_2^n)$, 此时, 概率的计算依然依照上式, 但其中 $x$ 可取的空间变小了, 概率就变小了.
+  通常为 $x\oplus k \in (V_k\subseteq F_2^n)$, 此时, 概率的计算依然上式, 所以**概率变小**.
 
-**Q:** 变小是基于什么?  
+  而如果概率仅考虑在有效的密钥空间里, 即下式, 则**概率可能变大**.
+
+$$
+P_r(\Delta_{in}\rightarrow \Delta_{out}) = \frac{\textsf{No.}\lbrace F(x)\oplus F(x\oplus\Delta_{in})=\Delta_{out}\rbrace}{|V_k|}
+$$
+
+
 
 ---
 
