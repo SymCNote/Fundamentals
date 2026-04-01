@@ -92,11 +92,12 @@ $$
 
 <img alt="image" src="https://github.com/user-attachments/assets/cc93aa72-d448-4e07-9386-364542b333b2" />
 
+注:  蓝线 = $Y_{DDT}$ ; 紫线 = $X_{DDT}$; 红线 = 跨轮约束.
+
 **非线性操作 之间操作(记 $L_k$) 产生的影响**:
 
 * 如果 $L_k$ 带来了 *足够的随机性*, 则半约束的影响被消除, 没研究意义.
 * 如果 $L_k$ 带来了 *不够的随机性*, 则连接 $L_k$ 前后的半约束.
-
 
 ---
 
@@ -106,7 +107,48 @@ $$
 
 #### Simple Linear Constraint
 
+<img alt="keydependencySKINNY - L" src="https://github.com/user-attachments/assets/ab4317a2-b3be-4222-8b71-e6031f2bd36f" />
 
+线性约束的产生过程:
+
+**Constraint-1 (C1):** 图中 (绿+蓝+红+紫)
+
+* 通过 $R.0$ 的 Sbox, 可以得到 $Y_{DDT}(0xd,0x2)=\lbrace 0x4, 0x6, 0xc, 0xe\rbrace, Y_{DDT}(0xd,0x9)=\lbrace 0x1, 0x3, 0x8, 0xa\rbrace$
+
+* 通过 $R.1$ 的 Sbox (反向), 可以得到 $X_{DDT}(0xb,0xc)=\lbrace 0x6, 0xd\rbrace$
+
+* 传播到 $W_r^{pos}$, 经过 MC, 可以建立关系, 其中 $0x2$ 是轮常数.
+
+  
+$$
+Y_{DDT}(0xd,0x2) \oplus Y_{DDT}(0xd,0x9) \oplus 0x2 \oplus k_{0,2}^0 = X_{DDT}(0xb,0xc)
+$$
+
+
+
+* 得到 
+
+$$
+C1:= k_{0,2}^2 \in \lbrace 0x0, 0x1, 0x2, 0x3, 0x8, 0x9, 0xa, 0xb \rbrace
+$$
+
+但是可以发现, 在 $k_{0,2}^2$ 上其实还有另一个限制, 
+
+**Constraint-2 (C2):** 图中 (绿+蓝+红+黑)
+
+* 通过 $R.0$ 的 Sbox, 可以得到 $Y_{DDT}(0xd,0x2)=\lbrace 0x4, 0x6, 0xc, 0xe\rbrace$
+* 通过 $R.1$ 的 Sbox (反向), 可以得到 $X_{DDT}(0xb,0xc)=\lbrace 0x6, 0xd\rbrace$
+* 可以直接建立如上关系 (MC 没什么影响), 从而得到约束 $C2$.
+
+
+$$
+C2:= k_{0,2}^2 \in \lbrace 0x4, 0x5, 0x6, 0x7, 0xc, 0xd, 0xe, 0xf \rbrace
+$$
+
+
+**可以发现 $C1 \cap C2=\emptyset$ , 所以这条差分特征其实是无效的.**
+
+---
 
 
 
@@ -326,6 +368,3 @@ Size 2 sets: 128, pr: 0.0625
 Size 4 sets: 64, pr: 0.125
 [Finished in 75ms]
 ```
-
-<img alt="keydependencySKINNY - L" src="https://github.com/user-attachments/assets/ab4317a2-b3be-4222-8b71-e6031f2bd36f" />
-
