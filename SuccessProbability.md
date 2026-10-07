@@ -1,4 +1,3 @@
-
 # 差分攻击的成功率与穷搜
 
 ref. https://eprint.iacr.org/2023/354
@@ -23,10 +22,10 @@ $$
 
 例子：
 
-* $s=1,\ N=1/p$：$P_{\rm success}\approx1-e^{-1}=63.2\%$。
-* $s=3,\ N=3/p$：$P_{\rm success}\approx1-e^{-3}=95.0\%$。
+* $s=1,\ N=1/p$: $P_{\rm success}\approx 1-e^{-1}=63.2\%$.
+* $s=3,\ N=3/p$: $P_{\rm success}\approx 1-e^{-3}=95.0\%$.
 
-注意：$s=3$ 表示**期望有 3 个 pair 满足区分器**, **成功条件仍是至少命中一次**。
+注意: $s=3$ 表示**期望有 3 个 pair 满足区分器**, **成功条件仍是至少命中一次**。
 
 ### 穷搜复杂度
 
@@ -63,16 +62,17 @@ $$
 ### 攻击成功率
 
 **正确子密钥少于 $\theta$ 票时会被丢弃**，因此，成功率为 $1- (正确子密钥只得到 0\sim \theta-1 票)$ 的概率：
+
 $$
 P_{\rm success}=\Pr[X\ge\theta]=1-\sum_{j=0}^{\theta-1}\binom Nj p^j(1-p)^{N-j}\approx1-e^{-s}\sum_{j=0}^{\theta-1}\frac{s^j}{j!}.
 $$
 
-例子：固定 $s=3$，即 $N=3/p$。
+例子：固定 $s=3$, 即 $N=3/p$.
 
-* $\theta=1$：$P_{\rm success}\approx1-e^{-3}=95.0\%$。
-* $\theta=3$：$P_{\rm success}\approx1-e^{-3}(1+3+3^2/2)=57.7\%$。
+* $\theta=1$: $P_{\rm success}\approx1-e^{-3}=95.0\%$.
+* $\theta=3$: $P_{\rm success}\approx1-e^{-3}(1+3+3^2/2)=57.7\%$.
 
-注意：$s$ 是正确子密钥的**期望票数**，$\theta$ 是保留候选的**最低票数**，两者可以分别选择。
+注意：$s$ 是正确子密钥的**期望票数**, $\theta$ 是保留候选的**最低票数**, 两者可以分别选择。
 
 ### 错误密钥的保留概率
 
@@ -96,7 +96,7 @@ $$
 \mathbb E[T_{\rm exhaustive}]\approx\left[(2^{k_{\rm involve}}-1)\beta+P_{\rm success}\right]2^{K-k_{\rm involve}}.
 $$
 
-当 $(2^{k_{\rm involve}}-1)\beta\gg P_{\rm success}$，即**保留的错误候选数量占主导时**，可近似为
+当 $(2^{k_{\rm involve}}-1)\beta\gg P_{\rm success}$, 即**保留的错误候选数量占主导时**，可近似为
 
 $$
 \mathbb E[T_{\rm exhaustive}]\approx2^{k_{\rm involve}}\beta\cdot2^{K-k_{\rm involve}}=2^K\beta.
@@ -127,8 +127,8 @@ $$
 
 总共有 $N'=1+4+2+3=10$ 个 (pair, cand. key) tuple，对应 4 个不同的候选子密钥。假设每个候选还剩 16 位需要补全。
 
-* **逐条测试：**对每个 tuple 分别补全并验证，遍历全部 tuple 的穷搜量约为 $10\cdot2^{16}$。
-* **阈值筛选：**设置 $\theta=3$，只保留 $k_B,k_D$，每个候选补全并验证一次，穷搜量约为 $2\cdot2^{16}$，此外还需计入前面的计票成本。
+* **逐条测试**: 对每个 tuple 分别补全并验证，遍历全部 tuple 的穷搜量约为 $10\cdot2^{16}$。
+* **阈值筛选**: 设置 $\theta=3$，只保留 $k_B,k_D$，每个候选补全并验证一次，穷搜量约为 $2\cdot2^{16}$，此外还需计入前面的计票成本。
 
 节省的穷搜量来自两部分：
 
